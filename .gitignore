@@ -1,0 +1,29 @@
+# Build outputs
+build-out/
+*.apk
+
+# Probe raw evidence (历史像素/录屏/日志，体积 1.2G，不入库)
+probe/probe-report/offline/
+probe/probe-report/oasis_pixels/
+probe/probe-report/screenshots/
+probe/probe-report/archive/
+probe/probe-report/l1_rows/
+probe/probe-report/*.png
+probe/probe-report/*.log
+probe/probe-report/vid_*.rgb
+probe/tools/
+
+# Historical probe reports: exclude files, whitelist key docs
+probe/probe-report/*
+!probe/probe-report/findings.txt
+!probe/probe-report/p19*.txt
+!probe/probe-report/p20*.txt
+
+# Python caches
+__pycache__/
+*.pyc
+
+# Local tooling / IDE
+.vscode/
+.idea/
+*.iml

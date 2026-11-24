@@ -1,0 +1,20 @@
+p194 2026-11-24 删除重复标题 + 界面显示名对齐项目名
+====================================================================
+用户反馈两点：① 标题有两层；② 项目名是 MagicOS11GlassForSetting。
+
+p193 删除重复标题
+- 根因：onCreate() 里 p174 老标题（图标方块 + MagicGlass 18f + 状态胶囊）
+  与 rebuild() 里 headerBar()（MagicGlass 21f + 作者 + 状态点）叠加。
+- 修复：删 onCreate 老标题整块 + status 字段 + writeLive 的 status.setText；
+  标题只留 headerBar() 一处。
+
+p194 显示名对齐项目名
+- module.prop 与 Manifest 在 p176 已是 MagicOS11GlassForSetting，
+  界面仍写 MagicGlass。
+- 标题与页脚两处改为 MagicOS11GlassForSetting；标题字号 21f→17f 防溢出。
+  包名、authority、author 均未改。
+
+闸门
+- assert_p194.py：83 checks / 0 failures
+- build.sh 6/6；APK 246,591 bytes / SHA256 03910927…abbb / versionCode 221
+- 装机 Success；versionName=0.5.0-p194；重启后 FATAL 计数 0

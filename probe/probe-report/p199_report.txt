@@ -1,0 +1,26 @@
+p199 2026-11-24 订正：赞赏码为微信（非支付宝）
+====================================================================
+用户纠正："这是微信的赞赏码"。此前 p198 误判为支付宝，本版订正。
+
+改动
+- 拉起目标：支付宝 → 微信
+  scheme: alipayqr://platformapi/startapp?saId=10000007 → weixin://dl/scan
+  回退包名: com.eg.android.AlipayGphone → com.tencent.mm
+- UI 文案与三条 toast 全部改为"微信"
+- 断言 BF03 改校验微信 scheme / 包名
+
+不变
+- 赞赏码是微信小程序码（圆形放射点阵），专有编码，图内无网址，
+  无法一键直达支付页（jsqr 整图与三档裁切均解不出）。
+- 点击跳转=存图到相册 + 拉起微信扫一扫 + 在相册选图，单机闭环。
+- p197 已关闭所有自定义上传/外链入口，唯一渠道保持。
+
+闸门
+- assert_p199.py：95 checks / 0 failures
+- build.sh 6/6；APK 353,169 bytes / SHA256 e6aade71…f1c391 / versionCode 226
+- 装机 Success；versionName=0.5.0-p199；重启后 FATAL 0
+
+真机验收
+- 点赞助卡 → 相册出现"MagicGlass赞赏码" + 微信被拉起
+- 微信扫一扫 → 相册 → 选中该图 → 识别到赞赏页
+- 未装微信 → toast 提示长按识别，不崩溃

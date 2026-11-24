@@ -1,0 +1,8 @@
+name=MagicGlass Probe
+version=0.1.0-probe
+versionCode=1
+author=MagicGlass
+description=Read-only P0 reflection probe for the Honor transparency stack
+minApiVersion=101
+targetApiVersion=101
+staticScope=false

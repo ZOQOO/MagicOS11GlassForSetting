@@ -1,0 +1,27 @@
+p201 2026-11-24 直接拉起微信扫一扫
+====================================================================
+用户：能否直接拉起微信主页/跳转？网上找方案。
+
+调研结论
+- 微信 8.0.50+ 可用显式 ComponentName com.tencent.mm/.ui.LauncherUI +
+  extra LauncherUI.From.Scaner.Shortcut=true 直达扫一扫。
+- weixin://dl/scan 等 scheme 已被收归安全子集，非白名单一律"当前页面无法访问"。
+
+设备实测（微信 8.0.79）
+- am start -n com.tencent.mm/.ui.LauncherUI --ez LauncherUI.From.Scaner.Shortcut true
+  → topResumedActivity = com.tencent.mm/.plugin.scanner.ui.BaseScanUI ✅
+- 测后立刻把前台还原到模块，未动微信登录态/数据。
+
+实现
+- 点赞助卡：存码图到相册 → 显式 ComponentName + extra 直达扫一扫
+  → 失败回退包名启动微信主界面。
+- 文案："自动保存赞赏码并直达微信扫一扫 · 点相册选它"。
+
+闸门
+- assert_p201.py：95 checks / 0 failures
+- build.sh 6/6；APK 353,169 bytes / SHA256 58dcb631…2ecdf / versionCode 228
+- 装机 Success；versionName=0.5.0-p201；重启后 FATAL 0
+
+真机验收
+- 点赞助卡 → 相册出现码图 + 微信扫一扫界面直接打开（无错误页）
+- 扫一扫 → 相册 → 选中该图 → 识别到赞赏页

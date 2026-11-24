@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:label="MagicOS11GlassForSetting"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.DeviceDefault.DayNight">
+
+        <meta-data
+            android:name="xposedmodule"
+            android:value="true" />
+        <meta-data
+            android:name="xposeddescription"
+            android:value="Per-level liquid glass and editable backgrounds for MagicOS Settings" />
+        <meta-data
+            android:name="xposedminversion"
+            android:value="101" />
+
+        <!-- Module-side configuration UI. A launcher entry is intentional:
+             LSPosed hides module icons by default, but this module needs a
+             real UI to edit per-level backgrounds and glass parameters. -->
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="true"
+            android:label="MagicOS11GlassForSetting">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 0.5.0-p189: 图标导入后的交互裁剪页（拖动/缩放后烘焙成圆形 PNG）。
+             非导出，仅模块内部跳转。 -->
+        <activity
+            android:name=".IconCropActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="裁剪图标" />
+
+        <!-- Read-only cross-process bridge: config matrix + background media.
+             Host processes cannot read /data/data/com.magicglass directly. -->
+        <provider
+            android:name=".ModuleProvider"
+            android:authorities="com.magicglass.provider"
+            android:exported="true"
+            android:grantUriPermissions="false" />
+    </application>
+
+</manifest>

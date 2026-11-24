@@ -1,0 +1,8 @@
+name=MagicOS11GlassForSetting
+version=0.5.0-p201
+versionCode=228
+author=ZOQOO
+description=Per-level liquid glass and editable backgrounds for MagicOS Settings (standalone, no MIUI base)
+minApiVersion=101
+targetApiVersion=101
+staticScope=false

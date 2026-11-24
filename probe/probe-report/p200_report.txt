@@ -1,0 +1,25 @@
+p200 2026-11-24 修复微信"当前页面无法访问"
+====================================================================
+用户实测：p199 点击后微信显示"对不起，当前页面无法访问"。
+
+定因（设备侧实测）
+- 设备微信 8.0.79（versionCode 3200）。
+- resolve-activity 显示 weixin://dl/scan、weixin:// 等全部落到
+  WXCustomSchemeEntryActivity，未知业务 path 一律提示无法访问。
+- 结论：不是拉错应用，是 weixin://dl/scan 已被微信废弃。
+
+修复
+- 删掉 ACTION_VIEW + weixin://dl/scan 启动分支。
+- 只用 getLaunchIntentForPackage("com.tencent.mm") 启动微信主界面
+  LauncherUI（resolve-activity 与 monkey 实测均确认可用）。
+- 引导链：微信 → + → 扫一扫 → 相册 → 选刚存的码图。
+- 副标题与三条 toast 同步改准确。
+
+闸门
+- assert_p200.py：95 checks / 0 failures
+- build.sh 6/6；APK 353,169 bytes / SHA256 ac0e6824…42d01b / versionCode 227
+- 装机 Success；versionName=0.5.0-p200；重启后 FATAL 0
+
+真机验收
+- 点赞助卡 → 相册出现"MagicGlass赞赏码" + 微信主界面正常打开（无错误页）
+- 微信 → + → 扫一扫 → 相册 → 选中该图 → 识别到赞赏页
