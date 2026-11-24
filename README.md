@@ -1,6 +1,6 @@
 # MagicOS11GlassForSetting
 
-MagicOS 11 设置界面的液态玻璃模块（LSPosed / Xposed 独立模块，无 MIUI 依赖）。
+MagicOS 11 设置界面的液态玻璃模块（LSPosed / Xposed 独立模块）。
 
 对设置页逐层启用玻璃效果、可编辑背景、行内图标自定义；所有配置改动即时生效，不需要软重启或重启进程。
 
