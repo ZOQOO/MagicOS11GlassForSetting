@@ -1,4 +1,4 @@
-# MagicOS11GlassForSetting
+# MagicOS11GlassForSetting（自用未发布，测试中）
 
 MagicOS 11 设置界面的液态玻璃模块（LSPosed / Xposed 独立模块）。
 
@@ -60,3 +60,4 @@ bash build.sh                 # 构建签名 APK，输出到 build-out/
 ## 作者
 
 ZOQOO · 基于 LSPosed
+联系：250932261
